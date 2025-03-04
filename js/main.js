@@ -36,7 +36,7 @@ const massageList = [
 ];
 
 const nameList = [
- 'Илларион',
+  'Илларион',
   'Аглая',
   'Елисей',
   'Василиса',
@@ -97,26 +97,26 @@ const createComment = () => {
 
   return {
     id: randomIdCommentIndex,
-    avatar: 'img/avatar-' + randomAvatarIndex + '.svg',
+    avatar: `img/avatar-${ randomAvatarIndex }.svg`,
     message: massageList[randomMassageIndex],
     name: nameList[randomNameList]
-  }
-}
+  };
+};
 
 //функция генерации объектов-описаний фотографий
 const createDescriptionFoto = () => {
   const randomDescriptionIndex = getRandomInteger(1, descriptionList.length - 1);
   const randomLikesIndex = getRandomInteger(MIN_LIKES, MAX_LIKES);
   const randomCountComments = getRandomInteger(MIN_COUNT_COMMENTS, MAX_COUNT_COMMENTS);
-  let сomments = Array.from({length: randomCountComments}, createComment);
+  const сomments = Array.from({length: randomCountComments}, createComment);
 
   return {
     id: id++,
-    url: 'photos/' + urlFotoIndex++ + '.jpg',
+    url: `photos/${ urlFotoIndex++ }.jpg`,
     description: descriptionList[randomDescriptionIndex],
     likes: randomLikesIndex,
     comments: сomments
-  }
+  };
 };
 
 const differentDescriptionFoto = Array.from({length: COUNT_FOTO}, createDescriptionFoto);
