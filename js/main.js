@@ -63,11 +63,22 @@ const nameList = [
   'Павел'
 ];
 
-const MIN_ID = 1;
-const MAX_ID = 25;
-
 const MIN_LIKES = 15;
 const MAX_LIKES = 200;
+
+let id = 1;
+let urlFotoIndex = 1;
+
+const MIN_ID_COMMENT = 1;
+const MAX_ID_COMMENT = 1000;
+
+const MIN_AVATAR_INDEX = 1;
+const MAX_AVATAR_INDEX = 6;
+
+const MIN_COUNT_COMMENTS = 0;
+const MAX_COUNT_COMMENTS = 30;
+
+const COUNT_FOTO = 25;
 
 //функция генерации случайного целого числа
 const getRandomInteger = (a, b) => {
@@ -77,31 +88,36 @@ const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
-//функция формирования массива-описания фотографий
-const createDescriptionFoto = () => {
-  const randomIdIndex = getRandomInteger(MIN_ID, MAX_ID);
-  const randomDescriptionIndex = getRandomInteger(1, descriptionList.length - 1);
-  const randomUrlFotoIndex = getRandomInteger(1, 25);
-  const randomLikesIndex = getRandomInteger(MIN_LIKES, MAX_LIKES);
-
-  const randomIdCommentIndex = getRandomInteger(1, 1000);
-  const randomAvatarIndex = getRandomInteger(1, 6);
+//Функция генерации комментариев
+const createComment = () => {
+  const randomIdCommentIndex = getRandomInteger(MIN_ID_COMMENT, MAX_ID_COMMENT);
+  const randomAvatarIndex = getRandomInteger(MIN_AVATAR_INDEX, MAX_AVATAR_INDEX);
   const randomMassageIndex = getRandomInteger(1, massageList.length - 1);
   const randomNameList = getRandomInteger(1, nameList.length - 1);
 
   return {
-    id: randomIdIndex,
-    url: 'photos/' + randomUrlFotoIndex + '.jpg',
+    id: randomIdCommentIndex,
+    avatar: 'img/avatar-' + randomAvatarIndex + '.svg',
+    message: massageList[randomMassageIndex],
+    name: nameList[randomNameList]
+  }
+}
+
+//функция генерации объектов-описаний фотографий
+const createDescriptionFoto = () => {
+  const randomDescriptionIndex = getRandomInteger(1, descriptionList.length - 1);
+  const randomLikesIndex = getRandomInteger(MIN_LIKES, MAX_LIKES);
+  const randomCountComments = getRandomInteger(MIN_COUNT_COMMENTS, MAX_COUNT_COMMENTS);
+  let сomments = Array.from({length: randomCountComments}, createComment);
+
+  return {
+    id: id++,
+    url: 'photos/' + urlFotoIndex++ + '.jpg',
     description: descriptionList[randomDescriptionIndex],
     likes: randomLikesIndex,
-    comments: {
-      id: randomIdCommentIndex,
-      avatar: 'img/avatar-' + randomAvatarIndex + '.svg',
-      message: massageList[randomMassageIndex],
-      name: nameList[randomNameList]
-    }
+    comments: сomments
   }
 };
 
-const differentDescriptionFoto = Array.from({length: 25}, createDescriptionFoto);
+const differentDescriptionFoto = Array.from({length: COUNT_FOTO}, createDescriptionFoto);
 console.log(differentDescriptionFoto);
