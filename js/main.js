@@ -1,4 +1,4 @@
 import {differentDescriptionFoto} from './description-foto.js';
-import './util.js';
+import './foto.js';
 
-console.log(differentDescriptionFoto);
+//console.log(differentDescriptionFoto);
