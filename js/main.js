@@ -1,4 +1,3 @@
-import {generateDescriptionFoto} from './description-foto.js';
-import './foto.js';
+import {photos, generatePhoto} from './photo.js';
 
-console.log(generateDescriptionFoto);
+generatePhoto(photos);
