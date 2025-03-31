@@ -58,7 +58,7 @@ const createDescriptionFoto = () => {
   };
 };
 
-const differentDescriptionFoto = () => Array.from({length: COUNT_FOTO}, createDescriptionFoto);
+const generateDescriptionFoto = () => Array.from({length: COUNT_FOTO}, createDescriptionFoto);
 
-export {differentDescriptionFoto};
+export {generateDescriptionFoto};
 
