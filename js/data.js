@@ -26,7 +26,7 @@ const descriptionPhotoList = [
   'Просто люблю жизнь.'
 ];
 
-const massageList = [
+const messageList = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -63,4 +63,4 @@ const nameList = [
   'Павел'
 ];
 
-export {descriptionPhotoList, massageList, nameList};
+export {descriptionPhotoList, messageList, nameList};
