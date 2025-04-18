@@ -35,4 +35,7 @@ const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
-export {getRandomInteger};
+//Функция проверки нажатой клавиши (escape или нет)
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandomInteger, isEscapeKey};

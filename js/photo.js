@@ -9,8 +9,9 @@ const photos = generateDescriptionPhoto();
 const generatePhoto = () => {
   const differentPhotoFragment = document.createDocumentFragment();
 
-  photos.forEach(({url, description, likes, comments}) => {
+  photos.forEach(({id, url, description, likes, comments}) => {
     const pictureElement = picturesTemplate.cloneNode(true);
+    pictureElement.querySelector('.picture').dataset.pictureId = id;
     pictureElement.querySelector('.picture__img').src = url;
     pictureElement.querySelector('.picture__img').alt = description;
     pictureElement.querySelector('.picture__likes').textContent = likes;
@@ -20,6 +21,6 @@ const generatePhoto = () => {
   pictures.appendChild(differentPhotoFragment);
 };
 
-export {photos, generatePhoto};
+export {pictures, photos, generatePhoto};
 
 
