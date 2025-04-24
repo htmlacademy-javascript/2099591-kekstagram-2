@@ -1,24 +1,29 @@
-import {isEscapeKey} from './util';
-import {getError, isHashtagsValid} from './hashtags-validity';
+import {isEscapeKey} from './util.js';
+import {getError, isHashtagsValid} from './hashtags-validity.js';
+import {COMMENT_ERROR, isCommentValid} from './new-comment-validity.js';
 
 const imgUploadForm = document.querySelector('.img-upload__form');
 const uploadFile = imgUploadForm.querySelector('#upload-file');
 const photoEditor = imgUploadForm.querySelector('.img-upload__overlay');
-const uploadFormCancel = photoEditor.querySelector('#img-upload__cancel');
+const uploadFormCancel = photoEditor.querySelector('.img-upload__cancel');
 
 const hashtagInput = imgUploadForm.querySelector('.text__hashtags');
 const commentInput = imgUploadForm.querySelector('.text__description');
 
-const MAX_COMMENT_SYMBOLS = 140;
-
 const onUploadFormCancelClick = () => {
+  // eslint-disable-next-line no-use-before-define
   closePhotoEditor();
 };
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closePhotoEditor();
+    if (document.activeElement === hashtagInput || document.activeElement === commentInput) { //отмена Esc при фокусе
+      evt.stopPropagation();
+    } else {
+      // eslint-disable-next-line no-use-before-define
+      closePhotoEditor();
+    }
   }
 };
 
@@ -39,10 +44,6 @@ const closePhotoEditor = () => {
   uploadFile.value = '';
 };
 
-const isCommentValid = () => commentInput.value.length <= MAX_COMMENT_SYMBOLS;
-
-new Pristine(imgUploadForm);
-
 const pristine = new Pristine(imgUploadForm, {
   classTo: 'img-upload__form',
   errorTextParent: 'img-upload__field-wrapper',
@@ -50,6 +51,13 @@ const pristine = new Pristine(imgUploadForm, {
 });
 
 pristine.addValidator(hashtagInput, isHashtagsValid, getError);
-pristine.addValidator(commentInput, isCommentValid, 'длина комментария не может составлять больше 140 символов');
+pristine.addValidator(commentInput, isCommentValid, COMMENT_ERROR);
 
-export {openPhotoEditor, closePhotoEditor, hashtagInput};
+imgUploadForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  if (pristine.validate()) {
+    imgUploadForm.submit();
+  }
+});
+
+export {openPhotoEditor, hashtagInput, commentInput};
