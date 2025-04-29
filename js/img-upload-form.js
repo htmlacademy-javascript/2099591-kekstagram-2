@@ -2,6 +2,7 @@ import {isEscapeKey} from './util.js';
 import {onScaleSmallerClick, onScaleBiggerClick} from './scale-controls.js';
 import {getError, isHashtagsValid} from './hashtags-validity.js';
 import {COMMENT_ERROR, isCommentValid} from './new-comment-validity.js';
+import {onEffectsListChange} from './effects-slider.js';
 
 const imgUploadForm = document.querySelector('.img-upload__form');
 const uploadFile = imgUploadForm.querySelector('#upload-file');
@@ -10,6 +11,8 @@ const uploadFormCancel = photoEditor.querySelector('.img-upload__cancel');
 
 const scaleSmaller = imgUploadForm.querySelector('.scale__control--smaller');
 const scaleBigger = imgUploadForm.querySelector('.scale__control--bigger');
+
+const effectsList = imgUploadForm.querySelector('.effects__list');
 
 const hashtagInput = imgUploadForm.querySelector('.text__hashtags');
 const commentInput = imgUploadForm.querySelector('.text__description');
@@ -66,5 +69,7 @@ imgUploadForm.addEventListener('submit', (evt) => {
     imgUploadForm.submit();
   }
 });
+
+effectsList.addEventListener('change', onEffectsListChange);
 
 export {openPhotoEditor, hashtagInput, commentInput, imgUploadForm};
