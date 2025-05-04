@@ -3,14 +3,7 @@ const imgUploadPreview = document.querySelector('.img-upload__preview img');
 
 const effectSlider = imgUploadSection.querySelector('.effect-level__slider');
 const effectLevel = imgUploadSection.querySelector('.effect-level__value');
-
 const noneEffect = imgUploadSection.querySelector('#effect-none');
-// const chromeEffect = imgUploadSection.querySelector('#effect-chrome');
-// const sepiaEffect = imgUploadSection.querySelector('#effect-sepia');
-// const marvinEffect = imgUploadSection.querySelector('#effect-marvin');
-// const phobosEffect = imgUploadSection.querySelector('#effect-phobos');
-// const heatEffect = imgUploadSection.querySelector('#effect-heat');
-
 const effectsList = imgUploadSection.querySelector('.effects__list');
 const sliderWrapper = imgUploadSection.querySelector('.img-upload__effect-level');
 
@@ -93,6 +86,7 @@ const onEffectsListChange = (evt) => {
   const filterConfig = effectsConfig[effect];
 
   if (effect === 'none') {
+    // eslint-disable-next-line no-use-before-define
     resetEffect();
   } else {
     sliderWrapper.classList.remove('hidden');
@@ -110,6 +104,11 @@ const onEffectsListChange = (evt) => {
   }
 };
 
+const createEffect = () => {
+  effectsList.addEventListener('change', onEffectsListChange);
+  sliderWrapper.classList.add('hidden');
+};
+
 const resetEffect = () => {
   sliderWrapper.classList.add('hidden');
   imgUploadPreview.style.filter = 'none';
@@ -117,4 +116,4 @@ const resetEffect = () => {
   noneEffect.checked = true;
 };
 
-export {onEffectsListChange};
+export {createSlider, createEffect, resetEffect};
