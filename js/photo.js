@@ -1,15 +1,15 @@
 import {generateDescriptionPhoto} from './description-photo.js';
 
-const pictures = document.querySelector('.pictures');
+const picturesWrapper = document.querySelector('.pictures');
 
 const picturesTemplate = document.querySelector('#picture').content;
 
-const photos = generateDescriptionPhoto();
+const mockPhotos = generateDescriptionPhoto();
 
 const generatePhoto = () => {
   const differentPhotoFragment = document.createDocumentFragment();
 
-  photos.forEach(({id, url, description, likes, comments}) => {
+  mockPhotos.forEach(({id, url, description, likes, comments}) => {
     const pictureElement = picturesTemplate.cloneNode(true);
     pictureElement.querySelector('.picture').dataset.pictureId = id;
     pictureElement.querySelector('.picture__img').src = url;
@@ -18,11 +18,11 @@ const generatePhoto = () => {
     pictureElement.querySelector('.picture__comments').textContent = comments.length;
     differentPhotoFragment.appendChild(pictureElement);
   });
-  pictures.appendChild(differentPhotoFragment);
+  picturesWrapper.appendChild(differentPhotoFragment);
 };
 
-const fullPhoto = generatePhoto(photos);
+//const fullPhoto = generatePhoto(mockPhotos);
 
-export {pictures, photos, fullPhoto};
+export {picturesWrapper, mockPhotos, generatePhoto};
 
 
