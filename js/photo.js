@@ -21,6 +21,8 @@ const generatePhoto = () => {
   pictures.appendChild(differentPhotoFragment);
 };
 
-export {pictures, photos, generatePhoto};
+const fullPhoto = generatePhoto(photos);
+
+export {pictures, photos, fullPhoto};
 
 
