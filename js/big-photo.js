@@ -2,7 +2,7 @@ import {picturesWrapper, generatePhoto} from './photo.js';
 import {isEscapeKey} from './util.js';
 import {clearComments, generateComments} from './generate-comments.js';
 import {getData} from './api.js';
-import {showLoadingDataError} from './alerts.js';
+import {showLoadingError} from './alerts.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const bigPhotoCloseButton = document.querySelector('.big-picture__cancel');
@@ -66,7 +66,7 @@ getData()
   }
   )
   .catch(() => {
-    showLoadingDataError();
+    showLoadingError();
   });
 
 export {openBigPhoto};

@@ -7,7 +7,7 @@ const MIN_DESCRIPTION_INDEX = 1;
 const MIN_LIKES = 15;
 const MAX_LIKES = 200;
 
-let id = 1;
+let id = 0;
 let urlPhotoIndex = 1;
 
 const MIN_COUNT_COMMENTS = 0;

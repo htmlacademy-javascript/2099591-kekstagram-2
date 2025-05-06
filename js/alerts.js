@@ -7,7 +7,7 @@ const errorButton = error.querySelector('.error__button');
 const errorInner = error.querySelector('.error__inner');
 const ALERT_SHOW_TIME = 5000;
 
-const showLoadingDataError = () => {
+const showLoadingError = () => {
   body.append(dataLoadingError);
   setTimeout(() => {
     dataLoadingError.remove();
@@ -16,8 +16,11 @@ const showLoadingDataError = () => {
 
 const removeErrorMessage = () => {
   error.remove();
+  // eslint-disable-next-line no-use-before-define
   errorButton.removeEventListener('click', onErrorButtonClick);
+  // eslint-disable-next-line no-use-before-define
   body.removeEventListener('keydown', onDocumentKeydown);
+  // eslint-disable-next-line no-use-before-define
   body.removeEventListener('click', onDocumentClick);
 };
 
@@ -26,23 +29,25 @@ const onErrorButtonClick = () => {
 };
 
 const onDocumentKeydown = (evt) => {
-  if(isEscapeKey(evt)) {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    evt.stopPropagation();
     removeErrorMessage();
   }
 };
 
 const onDocumentClick = (evt) => {
-  if(evt.target === errorInner) {
+  if (evt.target === errorInner) {
     return;
   }
   removeErrorMessage();
 };
 
-const showUploadingDataError = () => {
-  document.body.append(error);
+const showUploadingError = () => {
+  body.append(error);
   errorButton.addEventListener('click', onErrorButtonClick);
   body.addEventListener('keydown', onDocumentKeydown);
   body.addEventListener('click', onDocumentClick);
 };
 
-export {showLoadingDataError, showUploadingDataError};
+export {showLoadingError, showUploadingError};

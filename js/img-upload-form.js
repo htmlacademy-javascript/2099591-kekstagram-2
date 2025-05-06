@@ -4,7 +4,8 @@ import {getError, isHashtagsValid} from './hashtags-validity.js';
 import {COMMENT_ERROR, isCommentValid} from './new-comment-validity.js';
 import {createEffect, resetEffect} from './effects-slider.js';
 import {sendData} from './api.js';
-import {showUploadingDataError} from './alerts.js';
+import {showUploadingError} from './alerts.js';
+import {showSuccessNotification} from './success-upload.js';
 
 const imgUploadForm = document.querySelector('.img-upload__form');
 const uploadFile = imgUploadForm.querySelector('#upload-file');
@@ -63,13 +64,6 @@ const pristine = new Pristine(imgUploadForm, {
 pristine.addValidator(hashtagInput, isHashtagsValid, getError);
 pristine.addValidator(commentInput, isCommentValid, COMMENT_ERROR);
 
-// imgUploadForm.addEventListener('submit', (evt) => {
-//   evt.preventDefault();
-//   if (pristine.validate()) {
-//     imgUploadForm.submit();
-//   }
-// });
-
 const blockSubmitButton = () => {
   submitButton.disabled = true;
 };
@@ -85,10 +79,12 @@ const setImgUploadFormSubmit = (onSuccess) => {
       return;
     }
     blockSubmitButton();
+
     sendData(new FormData(evt.target))
       .then(onSuccess)
+      .then(showSuccessNotification)
       .catch(() => {
-        showUploadingDataError();
+        showUploadingError();
       })
       .finally(unblockSubmitButton);
   });
