@@ -7,11 +7,8 @@ const successButton = successWrapper.querySelector('.success__button');
 
 const showSuccessNotification = () => {
   document.body.append(successNotification);
-  // eslint-disable-next-line no-use-before-define
   successButton.addEventListener('click', onSuccessButtonClick);
-  // eslint-disable-next-line no-use-before-define
   document.addEventListener('keydown', onDocumentKeydown);
-  // eslint-disable-next-line no-use-before-define
   document.addEventListener('click', onDocumentClick);
 };
 
@@ -19,24 +16,24 @@ const removeSuccessNotification = () => {
   successNotification.remove();
 };
 
-const onSuccessButtonClick = () => {
+function onSuccessButtonClick () {
   removeSuccessNotification();
-};
+}
 
-const onDocumentKeydown = (evt) => {
+function onDocumentKeydown (evt) {
   if (!isEscapeKey(evt)) {
     return;
   }
   evt.preventDefault();
   evt.stopPropagation();
   removeSuccessNotification();
-};
+}
 
-const onDocumentClick = (evt) => {
+function onDocumentClick (evt) {
   if (evt.target === successInner) {
     return;
   }
   removeSuccessNotification();
-};
+}
 
 export {showSuccessNotification};

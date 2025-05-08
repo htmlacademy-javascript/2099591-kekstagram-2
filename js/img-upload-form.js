@@ -18,7 +18,6 @@ const commentInput = imgUploadForm.querySelector('.text__description');
 const submitButton = imgUploadForm.querySelector('.img-upload__submit');
 
 const onUploadFormCancelClick = () => {
-  // eslint-disable-next-line no-use-before-define
   closePhotoEditor();
 };
 
@@ -28,7 +27,6 @@ const onDocumentKeydown = (evt) => {
     if (document.activeElement === hashtagInput || document.activeElement === commentInput) { //отмена Esc при фокусе
       evt.stopPropagation();
     } else {
-      // eslint-disable-next-line no-use-before-define
       closePhotoEditor();
     }
   }
@@ -45,7 +43,7 @@ const openPhotoEditor = () => {
   });
 };
 
-const closePhotoEditor = () => {
+function closePhotoEditor () {
   photoEditor.classList.add('hidden');
   document.body.classList.remove('modal-open');
   uploadFormCancel.removeEventListener('click', onUploadFormCancelClick);
@@ -53,7 +51,9 @@ const closePhotoEditor = () => {
   resetScale();
   resetEffect();
   uploadFile.value = '';
-};
+  hashtagInput.value = '';
+  commentInput.value = '';
+}
 
 const pristine = new Pristine(imgUploadForm, {
   classTo: 'img-upload__form',

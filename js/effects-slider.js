@@ -86,7 +86,6 @@ const onEffectsListChange = (evt) => {
   const filterConfig = effectsConfig[effect];
 
   if (effect === 'none') {
-    // eslint-disable-next-line no-use-before-define
     resetEffect();
   } else {
     sliderWrapper.classList.remove('hidden');
@@ -109,11 +108,11 @@ const createEffect = () => {
   sliderWrapper.classList.add('hidden');
 };
 
-const resetEffect = () => {
+function resetEffect () {
   sliderWrapper.classList.add('hidden');
   imgUploadPreview.style.filter = 'none';
   effectLevel.value = 0;
   noneEffect.checked = true;
-};
+}
 
 export {createSlider, createEffect, resetEffect};
