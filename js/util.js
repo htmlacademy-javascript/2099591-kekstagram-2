@@ -38,4 +38,13 @@ const getRandomInteger = (a, b) => {
 //Функция проверки нажатой клавиши (escape или нет)
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {getRandomInteger, isEscapeKey};
+//Для устранения дребезга
+const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+export {getRandomInteger, isEscapeKey, debounce};
