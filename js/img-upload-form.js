@@ -7,19 +7,19 @@ import {sendData} from './api.js';
 import {showUploadingError} from './alerts.js';
 import {showSuccessNotification} from './success-upload.js';
 
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
 const imgUploadForm = document.querySelector('.img-upload__form');
+const imgUploadInput = document.querySelector('.img-upload__input');
 const uploadFile = imgUploadForm.querySelector('#upload-file');
 const photoEditor = imgUploadForm.querySelector('.img-upload__overlay');
 const uploadFormCancel = photoEditor.querySelector('.img-upload__cancel');
+const uploadPreview = document.querySelector('.img-upload__preview img');
+const uploadPreviewEffects = document.querySelectorAll('.effects__preview');
+const submitButton = imgUploadForm.querySelector('.img-upload__submit');
 
 const hashtagInput = imgUploadForm.querySelector('.text__hashtags');
 const commentInput = imgUploadForm.querySelector('.text__description');
-
-const submitButton = imgUploadForm.querySelector('.img-upload__submit');
-
-const onUploadFormCancelClick = () => {
-  closePhotoEditor();
-};
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -32,8 +32,28 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-const openPhotoEditor = () => {
+const onFileInputChange = () => {
+  const file = imgUploadInput.files[0];
+  const fileName = file.name.toLowerCase();
+  const fileExt = fileName.split('.').pop();
+  const matches = FILE_TYPES.includes(fileExt);
+
+  if (matches) {
+    const url = URL.createObjectURL(file);
+    uploadPreview.src = url;
+    uploadPreviewEffects.forEach((item) => {
+      item.style.backgroundImage = `url(${url})`;
+    });
+  } else {
+    return;
+  }
+
+  openPhotoEditor();
+};
+
+function openPhotoEditor () {
   uploadFile.addEventListener('change', () => {
+    onFileInputChange();
     photoEditor.classList.remove('hidden');
     document.body.classList.add('modal-open');
     uploadFormCancel.addEventListener('click', onUploadFormCancelClick);
@@ -41,7 +61,7 @@ const openPhotoEditor = () => {
     pushScale();
     createEffect ();
   });
-};
+}
 
 function closePhotoEditor () {
   photoEditor.classList.add('hidden');
@@ -53,6 +73,10 @@ function closePhotoEditor () {
   uploadFile.value = '';
   hashtagInput.value = '';
   commentInput.value = '';
+}
+
+function onUploadFormCancelClick () {
+  closePhotoEditor();
 }
 
 const pristine = new Pristine(imgUploadForm, {

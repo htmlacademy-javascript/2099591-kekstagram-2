@@ -16,32 +16,29 @@ const showLoadingError = () => {
 
 const removeErrorMessage = () => {
   error.remove();
-  // eslint-disable-next-line no-use-before-define
   errorButton.removeEventListener('click', onErrorButtonClick);
-  // eslint-disable-next-line no-use-before-define
   body.removeEventListener('keydown', onDocumentKeydown);
-  // eslint-disable-next-line no-use-before-define
   body.removeEventListener('click', onDocumentClick);
 };
 
-const onErrorButtonClick = () => {
+function onErrorButtonClick () {
   removeErrorMessage();
-};
+}
 
-const onDocumentKeydown = (evt) => {
+function onDocumentKeydown (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     evt.stopPropagation();
     removeErrorMessage();
   }
-};
+}
 
-const onDocumentClick = (evt) => {
+function onDocumentClick (evt) {
   if (evt.target === errorInner) {
     return;
   }
   removeErrorMessage();
-};
+}
 
 const showUploadingError = () => {
   body.append(error);
