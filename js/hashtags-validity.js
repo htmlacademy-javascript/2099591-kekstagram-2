@@ -26,7 +26,7 @@ const isHashtagsValid = () => {
       errorMessage: 'Хэштэг должен начинаться с решётки'
     },
     {
-      check: hashtags.some((item, num, array) => array.includes(item, num + 1)),
+      check: hashtags.some((item, num, items) => items.includes(item, num + 1)),
       errorMessage: 'Один и тот же хэштег не может быть использован дважды'
     },
     {

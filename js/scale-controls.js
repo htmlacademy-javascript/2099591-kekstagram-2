@@ -1,3 +1,6 @@
+const SCALE_STEP = 25;
+const MAX_SCALE = 100;
+
 const imgUploadForm = document.querySelector('.img-upload__form');
 const scaleControlValue = imgUploadForm.querySelector('.scale__control--value');
 const imgUploadPreview = imgUploadForm.querySelector('.img-upload__preview img');
@@ -5,8 +8,6 @@ const imgUploadPreview = imgUploadForm.querySelector('.img-upload__preview img')
 const scaleSmaller = imgUploadForm.querySelector('.scale__control--smaller');
 const scaleBigger = imgUploadForm.querySelector('.scale__control--bigger');
 
-const SCALE_STEP = 25;
-const MAX_SCALE = 100;
 let scale = 100;
 
 const onScaleSmallerClick = () => {
