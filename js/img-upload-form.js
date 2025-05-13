@@ -80,8 +80,9 @@ function onUploadFormCancelClick () {
 }
 
 const pristine = new Pristine(imgUploadForm, {
-  classTo: 'img-upload__form',
+  classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
+  errorTextTag: 'div',
   errorTextClass: 'img-upload__field-wrapper--error',
 });
 
