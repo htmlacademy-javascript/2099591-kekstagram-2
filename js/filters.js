@@ -13,7 +13,7 @@ const FILTERS = {
 const imgFilters = document.querySelector('.img-filters');
 
 let currentPhotoFilter = 'filter-default';
-let photoArray = [];
+let photosData = [];
 
 const sortCommentsQuantity = (photoA, photoB) => photoB.comments.length - photoA.comments.length;
 
@@ -30,12 +30,12 @@ const generateRandomPhotos = (photos, count) => {
 const getFilteredPhotos = (typeFilter) => {
   switch (typeFilter) {
     case FILTERS.RANDOM:
-      return generateRandomPhotos(photoArray, RANDOM_PHOTOS_QUANTITY);
+      return generateRandomPhotos(photosData, RANDOM_PHOTOS_QUANTITY);
     case FILTERS.DISCUSSED:
-      return photoArray.slice().sort(sortCommentsQuantity);
+      return photosData.slice().sort(sortCommentsQuantity);
     case FILTERS.DEFAULT:
     default:
-      return photoArray;
+      return photosData;
   }
 };
 
@@ -55,7 +55,7 @@ const onFiltersClick = (evt) => {
 };
 
 const initPhotoFilters = (photos) => {
-  photoArray = photos;
+  photosData = photos;
   imgFilters.addEventListener('click', debounce(onFiltersClick, RERENDER_DELAY));
   imgFilters.classList.remove('img-filters--inactive');
 };

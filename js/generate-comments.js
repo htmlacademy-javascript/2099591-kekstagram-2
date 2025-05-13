@@ -35,18 +35,21 @@ const showNextComments = () => {
   currentCount += COUNT_STEP;
 };
 
-const clearComments = () => {
-  currentCount = 0;
-  socialComments.innerHTML = '';
-  commentsLoader.classList.remove('hidden');
-  commentsLoader.removeEventListener('click', showNextComments);
+const onCommentsLoaderClick = () => {
+  showNextComments();
 };
 
 const generateComments = (currentPhotoComments) => {
   comments = currentPhotoComments;
   showNextComments();
-
-  commentsLoader.addEventListener('click', showNextComments);
+  commentsLoader.addEventListener('click', onCommentsLoaderClick);
 };
 
-export {clearComments, generateComments};
+const clearComments = () => {
+  currentCount = 0;
+  socialComments.innerHTML = '';
+  commentsLoader.classList.remove('hidden');
+  commentsLoader.removeEventListener('click', onCommentsLoaderClick);
+};
+
+export {generateComments, clearComments};
